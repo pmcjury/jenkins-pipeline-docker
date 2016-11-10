@@ -2,8 +2,9 @@ version: '2'
 services:
   jenkinsmaster:
     build: .
-    image: 388562162178.dkr.ecr.us-east-1.amazonaws.com/jenkins:latest
+    image: 388562162178.dkr.ecr.us-east-1.amazonaws.com/jenkins:1.11.2
     container_name: jenkinsmaster
+    mem_limit: 4294967296 # 4gb
     ports:
      - "8080:8080"
      - "5000:5000"

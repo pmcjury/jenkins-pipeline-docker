@@ -2,7 +2,7 @@ FROM jenkins:latest
 
 USER root
 
-ARG DOCKER_VERSION=1.12.2
+ARG DOCKER_VERSION=1.11.2
 ARG DOCKER_COMPOSE_VERSION=1.9.0-rc1
 ARG GOSU_VERSION=1.10
 
@@ -33,20 +33,9 @@ RUN set -x \
     && unzip awscli-bundle.zip \
     && ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
 
-# clean up
-# RUN apt-get purge -y --auto-remove ca-certificates \
-#   rm -rf /var/lib/apt/lists/* \
-#    && rm -rf docker-${DOCKER_VERSION}.tgz awscli-bundle.zip awscli-bundle
-
-# Make the jenkins user a sudoer
-# Replace the docker binary with a sudo script
-# RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers \
-#     && mv /usr/local/bin/docker /usr/local/bin/docker.bin \
-#     && printf '#!/bin/bash\nsudo docker.bin "$@"\n' > /usr/local/bin/docker \
-#     && chmod +x /usr/local/bin/docker \
-#     && mv /usr/local/bin/docker-compose /usr/local/bin/docker-compose.bin \
-#     && printf '#!/bin/bash\nsudo docker-compose.bin "$@"\n' > /usr/local/bin/docker-compose \
-#     && chmod +x /usr/local/bin/docker-compose
+#clean up
+RUN rm -rf /var/lib/apt/lists/* \
+    && rm -rf docker-${DOCKER_VERSION}.tgz awscli-bundle.zip awscli-bundle
 
 USER jenkins
 
